@@ -1,0 +1,14 @@
+No Man's Sky lay line calculator
+
+version 3.0.0
+
+Idea and math/logic by Bjorn the Void Trader
+Code by Soup Cat (with a lot of help from GPT)
+
+This app is a fan-made tool for players to use and is not
+affiliated with or endorsed by Hello Games
+
+UI icons from icons8.com
+
+Feel free to send me an email if you find a bug/inaccuracy or
+want to suggest an idea. Just don't send any personal info

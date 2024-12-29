@@ -1,0 +1,20 @@
+3-star deposits are a type of resource that can be found on any planet.
+
+
+There are 3 types of these deposits:
+
+- Sac Venom: If you get too close you will be damaged, and picking them up will alert sentinels
+  to lvl 3 (quad spawns)
+
+- Metal Fingers: Can be mined with the Advanced Mining Laser and will drop large amounts of
+  either Uranium or Gold
+
+- Curious Deposit: Can be mined with the Advanced Mining Laser and will start to roll 
+  away when hit. These drop large amounts of Runaway Mould, which refines 5:1 into nanites
+
+
+Each planet will only spawn one type of these 3-star deposits. If you find one that you aren't
+looking for, just go to another planet.
+
+3-star deposits respawn based on distance, meaning if you go far enough to unload the terrain,
+the deposits will respawn when you come back.

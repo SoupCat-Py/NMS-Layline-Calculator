@@ -1,0 +1,9 @@
+Laylines are lines of longitude (vertical lines that go from north to south)
+that will spawn 3 star deposits. 
+
+If you find a layline - either by yourself or by using this calculator -
+all you have to do is to go straight North or South to find deposits. 
+
+Laylines found using this calculator are valid between 45°N and 45°S.
+That doesnt mean there will be no deposits. It means that laylines aren't
+that certain outside of that range

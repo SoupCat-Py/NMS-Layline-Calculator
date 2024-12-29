@@ -1,0 +1,14 @@
+1. Land on a planet and get a point of reference. This can be your starship, a save beacon,
+   or navigational marker.
+
+2. Record your current coordinates in the "First Coordinates" field. Remember to enter as
+   an integer, so only positive or negative numbers with decimals are allowed. For a positive,
+   don't type '+'.
+
+3. Walk or drive at least 1000u from your reference point and record your new position in
+   "Second Coordinates" using the same format.
+
+4. Use your visor to find the distance between your current position and the reference point.
+   Record this in the "Distance" field.
+
+5. Click "Locate" to see your results. From there, you can save them to a txt file.
