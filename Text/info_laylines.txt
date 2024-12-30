@@ -6,4 +6,4 @@ all you have to do is to go straight North or South to find deposits.
 
 Laylines found using this calculator are valid between 45°N and 45°S.
 That doesnt mean there will be no deposits. It means that laylines aren't
-that certain outside of that range
+fully certain outside of that range
