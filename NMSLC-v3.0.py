@@ -4,7 +4,7 @@
 import customtkinter as ctk
 import tkinter as tk      # for menu bar
 from tkinter import filedialog  # for path
-from PIL import Image, ImageGrab
+from PIL import Image
 # utilities
 import math, os, sys, subprocess
 import webbrowser as web
@@ -97,21 +97,6 @@ def openFile():
         except Exception as e:
             print(f"Error opening file: {e}")
 
-def takeScreenshot():
-    global calcDone, timestamp
-    if calcDone:
-
-        # get coordinates of the window
-        x=App.winfo_Appx()
-        y=App.winfo_Appy()
-
-        # get dimensions of the window
-        w=x+App.winfo_width()
-        h=y+App.winfo_height()
-
-        # capture the window
-        screenshot=ImageGrab.grab(bbox=(x,y,w,h))
-        screenshot.save(f'laylines at {timestamp}.png')
 
 
 
@@ -292,7 +277,6 @@ class App(ctk.CTk):
         file_menu.add_command(label='save (ctrl-s)', command=logResults)
         file_menu.add_command(label='change path (ctrl-p)', command=getPath)
         file_menu.add_command(label='open file (ctrl-o)', command=openFile)
-        file_menu.add_command(label='take screnshot', command=takeScreenshot)
         file_menu.add_separator()
         file_menu.add_command(label='quit (ctrl-q)', command=self.quit)
             # add to menu bar
