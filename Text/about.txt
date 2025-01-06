@@ -1,6 +1,6 @@
 No Man's Sky lay line calculator
 
-version 3.0.0
+version 3.0.1
 
 Idea and math/logic by Bjorn the Void Trader
 Code by Soup Cat (with a lot of help from GPT)
