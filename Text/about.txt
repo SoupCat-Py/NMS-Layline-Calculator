@@ -1,9 +1,10 @@
-No Man's Sky lay line calculator
+No Man's Sky layline calculator
 
-version 3.0.1
+version 3.0.3
 
 Idea and math/logic by Bjorn the Void Trader
 Code by Soup Cat (with a lot of help from GPT)
+EXE built using PyInstaller
 
 This app is a fan-made tool for players to use and is not
 affiliated with or endorsed by Hello Games
