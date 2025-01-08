@@ -1,4 +1,5 @@
 # NMS-LC v3
+# stable - mode saving does not work
 
 # UI
 import customtkinter as ctk
@@ -14,6 +15,51 @@ path=None
 calcDone = False
 nms='GeosansLight-NMS'
 os.chdir(os.path.expanduser("~/Downloads"))
+
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller/cx_Freeze."""
+    try:
+        # When running as a packaged executable
+        base_path = sys._MEIPASS
+    except AttributeError:
+        # When running in the development environment
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+def writable_path(relative_path):
+    """Get path to writable resource stored in user's home directory."""
+    user_data_dir = os.path.join(os.path.expanduser("~"), "NMSLC_Data")
+    os.makedirs(user_data_dir, exist_ok=True)
+    return os.path.join(user_data_dir, relative_path)
+
+def initialize_writable_files():
+    """Copy writable files to user directory if not already present."""
+    files_to_copy = ["mode.txt", "error_log.txt"]
+    for file in files_to_copy:
+        source_path = resource_path(f"Text/{file}")
+        dest_path = writable_path(file)
+        if not os.path.exists(dest_path):
+            try:
+                with open(source_path, "r") as src, open(dest_path, "w") as dst:
+                    dst.write(src.read())
+            except Exception as e:
+                print(f"Error copying {file}: {e}")
+
+# Call this function at the start of your app
+initialize_writable_files()
+
+
+
+# Suppress Windows error reporting dialogs
+if os.name == "nt":  # Only for Windows
+    import ctypes
+    SEM_NOGPFAULTERRORBOX = 0x0002
+    ctypes.windll.kernel32.SetErrorMode(SEM_NOGPFAULTERRORBOX)
+
+
+
+
 
 def calculate(lat1, lat2, long1, long2, distance):
     global calcDone, verticalResult
@@ -107,23 +153,26 @@ class App(ctk.CTk):
         super().__init__()
 
         # setup
-        ico_path=os.path.join(os.path.dirname(__file__), 'Icons/icon4.ico')
-        icns_path=os.path.join(os.path.dirname(__file__), 'Icons/icon4.icns')
+        ico_path=resource_path('Icons/icon4.ico')
+        icns_path=resource_path('Icons/icon4.icns')
         self.title('')
         self.resizable(False,False)
-        self.icon=ico_path
 
-        if sys.platform == 'darwin':   # check for mac
-            from AppKit import NSApplication, NSImage
+        try:
+            if sys.platform == 'darwin':   # check for mac
+                from AppKit import NSApplication, NSImage
 
-            ns_app = NSApplication.sharedApplication()
-            ns_icon = NSImage.alloc().initWithContentsOfFile_(icns_path)
-            ns_app.setApplicationIconImage_(ns_icon)
-        elif sys.platform in ('win32', 'cygwin', 'msys'):  # check for windows
-            self.iconbitmap=ico_path
+                ns_app = NSApplication.sharedApplication()
+                ns_icon = NSImage.alloc().initWithContentsOfFile_(icns_path)
+                ns_app.setApplicationIconImage_(ns_icon)
+            elif sys.platform in ('win32', 'cygwin', 'msys'):  # check for windows
+                self.iconbitmap(ico_path)
+                self.icon=ico_path
+        except:
+            pass
 
         # set dark mode based on text file
-        mode_path=os.path.join(os.path.dirname(__file__), 'Text/mode.txt')
+        mode_path=writable_path('mode.txt')
         with open(mode_path, "r") as file:
             content = file.read()
             ctk.set_appearance_mode(content)
@@ -143,7 +192,7 @@ class App(ctk.CTk):
 
         # bottom row of buttons
         try:   # just in case image file is missing or in the wront spot
-            run_path = os.path.join(os.path.dirname(__file__), 'Images/run.png')
+            run_path = resource_path('Images/run.png')
             self.icon=ctk.CTkImage(light_image=Image.open(run_path), dark_image=Image.open(run_path), size=(16,16))
             self.run_button=ctk.CTkButton(self, text='Locate', font=(nms,16), width=250, corner_radius=12, image=self.icon, command=self.give_inputs)
         except:
@@ -160,7 +209,7 @@ class App(ctk.CTk):
         self.results_frame=resultsFrame(self)
         #
         try:
-            back_path = os.path.join(os.path.dirname(__file__), 'Images/back.png')
+            back_path = resource_path('Images/back.png')
             self.back_icon=ctk.CTkImage(light_image=Image.open(back_path), dark_image=Image.open(back_path), size=(20,20))
             self.back_button=ctk.CTkButton(self, text='Back',image=self.back_icon, width=60, font=(nms,15), command=self.back)
         except:
@@ -172,7 +221,7 @@ class App(ctk.CTk):
         # guide screen
         self.guide_title=ctk.CTkLabel(self, text='How To Use the Calculator', font=(nms,22))
         try:
-            guide_path=os.path.join(os.path.dirname(__file__), 'Text/guide.txt')
+            guide_path=resource_path('Text/guide.txt')
             guide_file=open(guide_path,'r')
             guide_text=guide_file.read()
             self.guide_label=ctk.CTkLabel(self, text=guide_text, justify='left')
@@ -180,7 +229,7 @@ class App(ctk.CTk):
         except:
             self.guide_label=ctk.CTkLabel(self, text='<MISSING TEXT FILE>')
         try:
-            video_path=os.path.join(os.path.dirname(__file__), 'Images/video.png')
+            video_path=resource_path('Images/video.png')
             self.video_icon=ctk.CTkImage(light_image=Image.open(video_path), dark_image=Image.open(video_path), size=(20,20))
             self.video_button=ctk.CTkButton(self, text='Video Guide', image=self.video_icon, command=self.show_video)
         except:
@@ -197,7 +246,7 @@ class App(ctk.CTk):
         self.about_title=ctk.CTkLabel(self, text='About', font=(nms,22))
         #
         try:
-            about_path=os.path.join(os.path.dirname(__file__), 'Text/about.txt')
+            about_path=resource_path('Text/about.txt')
             about_file=open(about_path, 'r')
             about_text=about_file.read()
             self.about_label=ctk.CTkLabel(self, text=about_text, justify='left')
@@ -206,7 +255,7 @@ class App(ctk.CTk):
             self.about_label=ctk.CTkLabel(self, text='<MISSING TEXT FILE>')
         #
         try:
-            mail_path = os.path.join(os.path.dirname(__file__), 'Images/mail.png')
+            mail_path = resource_path('Images/mail.png')
             self.mail_icon=ctk.CTkImage(light_image=Image.open(mail_path), dark_image=Image.open(mail_path), size=(20,20))
             self.about_email_button=ctk.CTkButton(self, text='Contact Me', image=self.mail_icon, command=self.open_email)
         except:
@@ -214,13 +263,14 @@ class App(ctk.CTk):
 
 
         # make keybinds
-        self.bind_all('<Control-Return>', lambda event: self.give_inputs())
+        self.bind_all('<Return>', lambda event: self.give_inputs())
         #
         self.bind_all('<Control-s>', lambda event: logResults())
         self.bind_all('<Control-p>', lambda event: getPath())
         self.bind_all('<Control-o>', lambda event: openFile())
         self.bind_all('<Control-q>', lambda event: self.quit())
         self.bind_all('<Control-c>', lambda event: self.clearInputs())
+        self.bind_all('<Escape>', lambda event: self.back())
 
 
         # make menu bar
@@ -298,7 +348,7 @@ class App(ctk.CTk):
 
         # add run menu
         run_menu=tk.Menu(menu_bar, tearoff=0)
-        run_menu.add_command(label='calculate (ctrl-enter)', command=self.give_inputs)
+        run_menu.add_command(label='calculate (enter)', command=self.give_inputs)
         menu_bar.add_cascade(label='Run', menu=run_menu)
 
 
@@ -362,7 +412,7 @@ before running the calculation''', font=('Helvetica', 16))
 
     # view menu commands
     def toggle_dark_mode(self):
-        mode_path=os.path.join(os.path.dirname(__file__), 'Text/mode.txt')
+        mode_path=writable_path('mode.txt')
         with open(mode_path, "r") as file:
             content = file.read()
 
@@ -459,7 +509,7 @@ class infoFrameDeposits(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         try:
-            info_deposits_path = os.path.join(os.path.dirname(__file__), 'Text/info_deposits.txt')
+            info_deposits_path = resource_path('Text/info_deposits.txt')
             info_deposits_file = open(info_deposits_path, 'r')
             info_deposits_text = info_deposits_file.read()
             self.info_deposits_label=ctk.CTkLabel(self, text=info_deposits_text, justify='left')
@@ -471,7 +521,7 @@ class infoFrameLaylines(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         try:
-            info_laylines_path = os.path.join(os.path.dirname(__file__), 'Text/info_laylines.txt')
+            info_laylines_path = resource_path('Text/info_laylines.txt')
             info_laylines_file = open(info_laylines_path, 'r')
             info_laylines_text = info_laylines_file.read()
             self.info_laylines_label=ctk.CTkLabel(self, text=info_laylines_text, justify='left')
@@ -482,6 +532,19 @@ class infoFrameLaylines(ctk.CTkFrame):
 
 
 if __name__ == '__main__':
-    app=App()
-    app.mainloop()
+    try:
+        app=App()
+        app.mainloop()
+    except Exception as e:  # if the program crashes or an error occures
+        import traceback
+        # get error log file
+        error_path = writable_path('error_log.txt')
+        # write error details
+        with open (error_path, 'a') as log:
+            log.write(f'error occured at {dt.datetime.now()}:\n')
+            log.write(traceback.format_exc())
+            log.write('\n\n')
+        # display error message
+        import tkinter.messagebox as msg
+        msg.showerror("Unexpected Error", "The application encountered an error and needs to close.")
 os._exit(0)
