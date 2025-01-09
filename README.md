@@ -6,7 +6,7 @@ This is a remake of a remake of a program that Bjorn made a while ago, now made 
 Included are all the files needed to run the program if you have python installed and all the program's dependencies. <br />
 
 <h3>How to use NMS Layline Calculator</h3> 
-1. Open releases https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases and download .exe for either Windows or MacOS(Intel) depedning on yout system <br />
+1. Open releases https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases and download .exe for either Windows or MacOS(Intel) depedning on your system <br />
 2. Open .exe file  <br />
 (In its current state .exe might be detected as "Program with unwanted behaviour" and subsecuently blocked by Windows Defender) <br />
 
