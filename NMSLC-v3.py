@@ -1,5 +1,6 @@
 # NMS-LC v3
-# stable - mode saving does not work
+# version 3.1.0
+# most recent addition: log confirmation
 
 # UI
 import customtkinter as ctk
@@ -106,7 +107,14 @@ def getPath():
 # actually does the saving
 def actuallyLog():
     global path, C1La, C1Lo, C2La, C2Lo, Dis, verticalResult, timestamp
-    
+
+    def revert_confirmation():
+        app.confirm_label.configure(text='')
+
+    # show logging
+    app.confirm_label.configure(text='Logging...', text_color='yellow')
+
+    # log to file
     timestamp = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     with open(path, 'a') as file:
@@ -117,6 +125,11 @@ def actuallyLog():
         file.write(f'\n')
         file.write(f'{verticalResult} \n')
         file.write(f'-' * 40 + '\n')
+
+    # confirm to user
+    app.confirm_label.configure(text='Done!', text_color='green')
+    app.after(1500, revert_confirmation)
+
 
 # sees wether it needs to get the path first
 def logResults():
@@ -153,8 +166,8 @@ class App(ctk.CTk):
         super().__init__()
 
         # setup
-        ico_path=resource_path('Icons/icon4.ico')
-        icns_path=resource_path('Icons/icon4.icns')
+        ico_path=resource_path('Icons/icon.ico')
+        icns_path=resource_path('Icons/icon.icns')
         self.title('')
         self.resizable(False,False)
 
@@ -206,6 +219,7 @@ class App(ctk.CTk):
        
         # results screen
         self.results_title=ctk.CTkLabel(self, text='Laylines at these longitudes:', font=(nms,18))
+        self.confirm_label=ctk.CTkLabel(self, text='', font=(nms,18))
         self.results_frame=resultsFrame(self)
         #
         try:
@@ -288,6 +302,7 @@ class App(ctk.CTk):
         self.open_button.grid_forget()
         #
         self.results_title.grid_forget()
+        self.confirm_label.grid_forget()
         self.results_frame.grid_forget()
         #
         self.guide_title.grid_forget()
@@ -381,7 +396,8 @@ before running the calculation''', font=('Helvetica', 16))
                 # show results to the user
                 self.hideLayout()
                     # show results widgets
-                self.results_title.grid(row=1,column=1, padx=10,pady=3, columnspan=2, sticky='ew')
+                self.results_title.grid(row=1,column=1, padx=10,pady=3, sticky='ew')
+                self.confirm_label.grid(row=1,column=0, sticky='ew')
                 self.results_frame.grid(row=2,column=1, padx=10,pady=10, rowspan=4, sticky='ew', columnspan=2)
                 self.back_button.grid(row=2,column=0, padx=10,pady=10, sticky='e')
                 self.back_button.configure(width=100)
