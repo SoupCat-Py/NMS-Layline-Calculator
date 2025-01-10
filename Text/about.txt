@@ -1,16 +1,15 @@
 No Man's Sky layline calculator
 
-version 3.0.31
+version 3.1.0
 
 Idea and math/logic by Bjorn the Void Trader
 Code by Soup Cat (with a lot of help from GPT)
-EXE built using PyInstaller
+.EXE and .APP built using PyInstaller
 
-This app is a fan-made tool for players to use and is not
-affiliated with or endorsed by Hello Games
+This application is a fan-made tool for players to use and is not
+affiliated with or endorsed by Hello Games.
 
 UI icons from icons8.com
 
 Feel free to send me an email if you find a bug/inaccuracy or
-want to suggest an idea. 
-You can also submit an issue via the GitHub repository.
+want to suggest an idea.
