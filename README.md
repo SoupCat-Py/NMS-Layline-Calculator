@@ -3,7 +3,7 @@
 Use this calculator to find 3-star deposits (runaway mould, sac venom, and metal fingers) in No Man's Sky.  
 Made by Soup Cat and Bjorn the Void Trader.
 
-This is a remake of a remake of a program that Bjorn made a while ago, now made using CustomTkinter for the UI. Included are all the files used to make the program. Make sure to install any dependencies in order to run the `.py`.
+It is a remake of a remake of a program that Bjorn made a while ago, now made using CustomTkinter for the UI. Included are all the files used to make the program. Make sure to install any dependencies in order to run the `.py`.
 
 ---
 
