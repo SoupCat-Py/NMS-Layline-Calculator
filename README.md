@@ -13,12 +13,13 @@ This is a remake of a remake of a program that Bjorn made a while ago, now made 
 1. Go to [releases](https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases) and download the `.zip` for the correct system,
 2. Download and extract the `.zip` file of the **app**, <br />
 ![zip file download](https://github.com/user-attachments/assets/4be44035-2028-435d-b853-beedb9c0e8f5)
-
 4. Run the program (varies by system):
    - **Windows**: Open the `.exe`.  
    - **MacOS**: Open the `.app` and follow the instructions from the release page.
+5. Grant NMSLC permission to access your downloads. It only needs this to log your results
 
 NMSLC contains detailed instructions as well as useful info on 3-star resources and laylines under the "help" menu tab. However, if you prefer it in the form of a video, we have prepared a [short demonstration](https://www.youtube.com/watch?v=Ec8QN39GNB8).
+>*Install the included NMS font for the best experience*
 
 ---
 
