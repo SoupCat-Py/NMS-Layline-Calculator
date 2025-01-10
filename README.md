@@ -13,9 +13,9 @@ It is a remake of a remake of a program that Bjorn made a while ago, now made us
 1. Go to [releases](https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases) and download the `.zip` for the correct system,
 2. Download and extract the `.zip` file of the **app**, <br />
 ![zip file download](https://github.com/user-attachments/assets/4be44035-2028-435d-b853-beedb9c0e8f5)
-4. Run the program (varies by system):
-   - **Windows**: Open the `.exe` and **do not** mess with the directory folder; we are working on packaging it into the `.exe`.
-   - **MacOS**: Open the `.app` and follow the instructions from the release page.
+4. Run the program and follow instructions on the release page (varies by system):
+   - **Windows**: Open the `.exe`.
+   - **MacOS**: Open the `.app`.
 5. Grant NMSLC permission to access your downloads. It only needs this to log your results
 6. You are more than welcome to take a look at the source code if you have any doubts :)
 
