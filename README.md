@@ -17,6 +17,7 @@ It is a remake of a remake of a program that Bjorn made a while ago, now made us
    - **Windows**: Open the `.exe`.  
    - **MacOS**: Open the `.app` and follow the instructions from the release page.
 5. Grant NMSLC permission to access your downloads. It only needs this to log your results
+6. You are more than welcome to take a look at the source code if you have any doubts :)
 
 NMSLC contains detailed instructions as well as useful info on 3-star resources and laylines under the "help" menu tab. However, if you prefer it in the form of a video, we have prepared a [short demonstration](https://www.youtube.com/watch?v=Ec8QN39GNB8).
 >*Install the included NMS font for the best experience*
