@@ -31,4 +31,4 @@ Don't hesitate to [reach out to me](https://mail.google.com/mail/?view=cm&fs=1&t
 
 ---
 
-**Note**: The "source code" download in the releases isn't including the new files and updates I made, so instead, download `source.zip` from the code tab if you want the source code. They're the same for Mac and Windows.
+**Note**: The "source code" download in the releases isn't the most up-to-date, so instead, download `source.zip` from the code tab if you want the latest source code. They're the same for Mac and Windows.
