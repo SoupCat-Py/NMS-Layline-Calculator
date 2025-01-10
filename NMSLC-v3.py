@@ -1,10 +1,11 @@
 # NMS-LC v3
-# version 3.1.0
-# most recent addition: log confirmation
+# version 3.1.1
+# most recent addition: better communication with the user for things like invalid files
 
 # UI
 import customtkinter as ctk
 import tkinter as tk      # for menu bar
+import tkinter.messagebox as msg    # for showing errors
 from tkinter import filedialog  # for path
 from PIL import Image
 # utilities
@@ -15,10 +16,9 @@ import datetime as dt
 path=None
 calcDone = False
 nms='GeosansLight-NMS'
-os.chdir(os.path.expanduser("~/Downloads"))
 
 def resource_path(relative_path):
-    """Get absolute path to resource, works for dev and for PyInstaller/cx_Freeze."""
+    # Get absolute path to resource, works for dev and for PyInstaller/cx_Freeze.
     try:
         # When running as a packaged executable
         base_path = sys._MEIPASS
@@ -29,14 +29,14 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 def writable_path(relative_path):
-    """Get path to writable resource stored in user's home directory."""
+    # Get path to writable resource stored in user's home directory.
     user_data_dir = os.path.join(os.path.expanduser("~"), "NMSLC_Data")
     os.makedirs(user_data_dir, exist_ok=True)
     return os.path.join(user_data_dir, relative_path)
 
 def initialize_writable_files():
-    """Copy writable files to user directory if not already present."""
-    files_to_copy = ["mode.txt", "error_log.txt"]
+    # Copy writable files to user directory if not already present.
+    files_to_copy = ["mode.txt", "crash_log.txt"]
     for file in files_to_copy:
         source_path = resource_path(f"Text/{file}")
         dest_path = writable_path(file)
@@ -45,7 +45,7 @@ def initialize_writable_files():
                 with open(source_path, "r") as src, open(dest_path, "w") as dst:
                     dst.write(src.read())
             except Exception as e:
-                print(f"Error copying {file}: {e}")
+                msg.showerror('Unexpected Error!', f'Error copying {file}: {e}')
 
 # Call this function at the start of your app
 initialize_writable_files()
@@ -100,9 +100,12 @@ def getPath():
         if new_path:
             path = new_path
     except Exception as e:
-        print(f"Error occurred: {e}")
+        msg.showerror("Unexpected Error!", f"error occured {e}")
     finally:
+        if '.txt' not in path:
+            msg.showerror('Error!', 'Please select a .txt file')
         return path
+
     
 # actually does the saving
 def actuallyLog():
@@ -135,26 +138,42 @@ def actuallyLog():
 def logResults():
     global path, calcDone
     if calcDone:
-        if path is not None:
+        if path is not None and '.txt' in path:
             actuallyLog()
         else:
             path = getPath()
-            if path is not None:
+            if path is not None and '.txt' in path:
                 actuallyLog()
+            elif path is not None:
+                # show error message and confirmation on app
+                app.confirm_label.configure(text='Failed to save', text_color='red')
+                
+                msg.showerror("Log Error!", f"Could not save to {path}")
+
+                def reset_confirmation():
+                    app.confirm_label.configure(text='')
+                
+                app.after(2000, reset_confirmation)
+
+                #reset path for next time
+                path = None
 
 def openFile():
     global path
     if path is not None:
         try:
-            if sys.platform in ('win32', 'cygwin', 'msys'):  # windows
-                os.startfile(path)
-            elif sys.platform == "darwin":  # macOS
-                subprocess.run(["open", path])
-            else:  # Linux
-                subprocess.run(["xdg-open", path])
-            print(f"Opened: {path}")
+            if os.path.exists(path):
+                if sys.platform in ('win32', 'cygwin', 'msys'):  # windows
+                    os.startfile(path)
+                elif sys.platform == "darwin":  # macOS
+                    subprocess.run(["open", path])
+                else:  # Linux
+                    subprocess.run(["xdg-open", path])
+            else:
+                msg.showerror(f'Error!', f'''Could not open {path} 
+Perhaps it was deleted or renamed''')
         except Exception as e:
-            print(f"Error opening file: {e}")
+            msg.showerror(f'Error!', f'{e}')
 
 
 
@@ -185,15 +204,18 @@ class App(ctk.CTk):
             pass
 
         # set dark mode based on text file
-        mode_path=writable_path('mode.txt')
-        with open(mode_path, "r") as file:
-            content = file.read()
-            ctk.set_appearance_mode(content)
-            if content == 'dark':
-                lightMode = False
-            elif content == 'light':
-                lightMode = True
-            self.lightModeForMenu = tk.BooleanVar(value=lightMode)
+        try:
+            mode_path=writable_path('mode.txt')
+            with open(mode_path, "r") as file:
+                content = file.read()
+                ctk.set_appearance_mode(content)
+                if content == 'dark':
+                    lightMode = False
+                elif content == 'light':
+                    lightMode = True
+                self.lightModeForMenu = tk.BooleanVar(value=lightMode)
+        except:
+            msg.showerror('Error!', f'Could not open {mode_path}')
         
         # title
         self.title_label=ctk.CTkLabel(self, text='No Man\'s Sky Layline Finder', font=(nms,25), height=50, fg_color=('#FF6865','black'), text_color=('black','red'), corner_radius=10)
@@ -554,13 +576,12 @@ if __name__ == '__main__':
     except Exception as e:  # if the program crashes or an error occures
         import traceback
         # get error log file
-        error_path = writable_path('error_log.txt')
+        crash_path = writable_path('crash_log.txt')
         # write error details
-        with open (error_path, 'a') as log:
+        with open (crash_path, 'a') as log:
             log.write(f'error occured at {dt.datetime.now()}:\n')
             log.write(traceback.format_exc())
             log.write('\n\n')
         # display error message
-        import tkinter.messagebox as msg
         msg.showerror("Unexpected Error", "The application encountered an error and needs to close.")
 os._exit(0)
