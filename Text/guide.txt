@@ -6,7 +6,8 @@
    don't type '+'.
 
 3. Walk or drive at least 1000u from your reference point and record your new position in
-   "Second Coordinates" using the same format. Distance seen when you point at your marker switches from Units to minutes somewhere between 1100 and 1200u.
+   "Second Coordinates" using the same format. Distance seen when you point at your marker 
+   switches from Units to minutes somewhere between 1100u and 1200u.
 
 4. Use your visor to find the distance between your current position and the reference point.
    Record this in the "Distance" field.
