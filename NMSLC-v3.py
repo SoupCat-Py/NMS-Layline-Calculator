@@ -1,6 +1,6 @@
 # NMS-LC v3
-# version 3.1.1
-# most recent addition: shows current save path
+# version 3.2.0
+# most recent addition: create new blank text file
 
 # UI
 import customtkinter as ctk
@@ -87,6 +87,48 @@ def calculate(lat1, lat2, long1, long2, distance):
     verticalResult = "\n".join(map(str, listResult))
     return verticalResult
 
+# make a blank text file
+def makeNew():
+    global path
+
+    # make initial name
+    newFileName = defaultFileName = 'laylines'
+    app.confirm_label.configure(text='Generating file...', text_color='yellow')
+
+    def join(name):
+        newPath = os.path.join(os.path.expanduser('~/Downloads'), f'{name}.txt')
+        return newPath
+
+    # check if file is already in user's downloads
+    def check():
+        pathCheck = join(newFileName)
+        if os.path.exists(pathCheck):
+            exists = True
+        else:
+            exists = False
+        return exists
+    
+    exists = check()
+    if exists:
+        index = 1
+    while exists:
+        newFileName = f'{defaultFileName}({index})'
+        exists = check()
+        index += 1
+
+    # set path with new name
+    newPath = join(newFileName)
+
+    # open file and show new path
+    newFile = open(newPath, 'a')
+    path = newPath
+    app.path_label.configure(text=f'Current path: {path}')
+
+    # confirm to user
+    def reset_confirm():
+        app.confirm_label.configure(text='')
+    app.confirm_label.configure(text=f'created {newFileName}', text_color='green')
+    app.after(2000, reset_confirm)
 
 
 # get file path from user
@@ -255,7 +297,8 @@ class App(ctk.CTk):
         self.log_button=ctk.CTkButton(self, text='Log Results', font=(nms,15), command=logResults)
         self.path_button=ctk.CTkButton(self, text='Change Path', font=(nms,15), command=getPath)
         self.open_button=ctk.CTkButton(self, text='Open File', font=(nms,15), command=openFile)
-        self.path_label=ctk.CTkLabel(self, text=f'Current path: {path}', font=(nms,12))
+        self.new_file_button=ctk.CTkButton(self, text='New File', font=(nms,15), command=makeNew)
+        self.path_label=ctk.CTkLabel(self, text=f'Current path: {path}', font=(nms,13))
 
         # guide screen
         self.guide_title=ctk.CTkLabel(self, text='How To Use the Calculator', font=(nms,22))
@@ -307,6 +350,7 @@ class App(ctk.CTk):
         self.bind_all('<Control-s>', lambda event: logResults())
         self.bind_all('<Control-p>', lambda event: getPath())
         self.bind_all('<Control-o>', lambda event: openFile())
+        self.bind_all('<Control-n>', lambda event: makeNew())
         self.bind_all('<Control-q>', lambda event: self.quit())
         self.bind_all('<Control-c>', lambda event: self.clearInputs())
         self.bind_all('<Escape>', lambda event: self.back())
@@ -319,12 +363,14 @@ class App(ctk.CTk):
 
     # define hiding of layout
     def hideLayout(self):
+        global main
         self.inputs_frame.grid_forget()
         self.run_button.grid_forget()
         self.clear_button.grid_forget()
         self.log_button.grid_forget()
         self.path_button.grid_forget()
         self.open_button.grid_forget()
+        self.new_file_button.grid_forget()
         self.path_label.grid_forget()
         #
         self.results_title.grid_forget()
@@ -345,15 +391,21 @@ class App(ctk.CTk):
         self.about_email_button.grid_forget()
 
         self.back_button.grid_forget()
+        main = False
 
-    # define back function for results screen
+    # define back button function
     def back(self):
-        self.hideLayout()
+        global main
+        if not main:
+            self.hideLayout()
 
-        # show main screen
-        self.inputs_frame.grid(row=1,column=0, padx=20,pady=5, columnspan=2, sticky='sew')
-        self.run_button.grid(row=2,column=0, padx=10,pady=10, sticky='ew')
-        self.clear_button.grid(row=2,column=1, padx=10,pady=10, sticky='w')
+            # show main screen
+            self.inputs_frame.grid(row=1,column=0, padx=20,pady=5, columnspan=2, sticky='sew')
+            self.run_button.grid(row=2,column=0, padx=10,pady=10, sticky='ew')
+            self.clear_button.grid(row=2,column=1, padx=10,pady=10, sticky='w')
+
+            # tell the script the main screen on
+            main = True
 
     # method for menu bar
     def create_menu_bar(self):
@@ -368,6 +420,7 @@ class App(ctk.CTk):
         file_menu.add_command(label='save (ctrl-s)', command=logResults)
         file_menu.add_command(label='change path (ctrl-p)', command=getPath)
         file_menu.add_command(label='open file (ctrl-o)', command=openFile)
+        file_menu.add_command(label='new txt file (ctrl-n)', command=makeNew)
         file_menu.add_separator()
         file_menu.add_command(label='quit (ctrl-q)', command=self.quit)
             # add to menu bar
@@ -424,13 +477,14 @@ before running the calculation''', font=('Helvetica', 16))
                     # show results widgets
                 self.results_title.grid(row=1,column=1, padx=10,pady=3, sticky='ew')
                 self.confirm_label.grid(row=1,column=0, sticky='ew')
-                self.results_frame.grid(row=2,column=1, padx=10,pady=10, rowspan=4, sticky='ew', columnspan=2)
+                self.results_frame.grid(row=2,column=1, padx=10,pady=10, rowspan=5, sticky='ew', columnspan=2)
                 self.back_button.grid(row=2,column=0, padx=10,pady=10, sticky='e')
                 self.back_button.configure(width=100)
                 self.log_button.grid(row=3,column=0, padx=10,pady=5, sticky='e')
                 self.path_button.grid(row=4,column=0, padx=10,pady=5, sticky='e')
                 self.open_button.grid(row=5,column=0, padx=10,pady=5, sticky='e')
-                self.path_label.grid(row=6,column=0, padx=5,pady=5, columnspan=2, sticky='ew')
+                self.new_file_button.grid(row=6,column=0, padx=10,pady=5, sticky='e')
+                self.path_label.grid(row=7,column=0, padx=5,pady=5, columnspan=2, sticky='ew')
                     # update label in frame
                 self.results_frame.results_label.configure(text=self.results_list)
         except:
@@ -544,7 +598,7 @@ class inputFrame(ctk.CTkFrame):
 class resultsFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.results_label=ctk.CTkLabel(self, text='<PLACEHOLDER>', font=('Helvetica',16), anchor='center',justify='center')
+        self.results_label=ctk.CTkLabel(self, text='<PLACEHOLDER>', font=('Helvetica',18), anchor='center',justify='center')
         self.results_label.pack(expand=True, padx=10,pady=10)
 
 # define info screen frames
