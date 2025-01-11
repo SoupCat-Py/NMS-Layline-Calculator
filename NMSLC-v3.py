@@ -1,6 +1,6 @@
 # NMS-LC v3
 # version 3.1.1
-# most recent addition: better communication with the user for things like invalid files
+# most recent addition: shows current save path
 
 # UI
 import customtkinter as ctk
@@ -104,6 +104,8 @@ def getPath():
     finally:
         if '.txt' not in path:
             msg.showerror('Error!', 'Please select a .txt file')
+            path = None
+        app.path_label.configure(text=f'Current path: {path}')
         return path
 
     
@@ -253,6 +255,7 @@ class App(ctk.CTk):
         self.log_button=ctk.CTkButton(self, text='Log Results', font=(nms,15), command=logResults)
         self.path_button=ctk.CTkButton(self, text='Change Path', font=(nms,15), command=getPath)
         self.open_button=ctk.CTkButton(self, text='Open File', font=(nms,15), command=openFile)
+        self.path_label=ctk.CTkLabel(self, text=f'Current path: {path}', font=(nms,12))
 
         # guide screen
         self.guide_title=ctk.CTkLabel(self, text='How To Use the Calculator', font=(nms,22))
@@ -322,6 +325,7 @@ class App(ctk.CTk):
         self.log_button.grid_forget()
         self.path_button.grid_forget()
         self.open_button.grid_forget()
+        self.path_label.grid_forget()
         #
         self.results_title.grid_forget()
         self.confirm_label.grid_forget()
@@ -426,6 +430,7 @@ before running the calculation''', font=('Helvetica', 16))
                 self.log_button.grid(row=3,column=0, padx=10,pady=5, sticky='e')
                 self.path_button.grid(row=4,column=0, padx=10,pady=5, sticky='e')
                 self.open_button.grid(row=5,column=0, padx=10,pady=5, sticky='e')
+                self.path_label.grid(row=6,column=0, padx=5,pady=5, columnspan=2, sticky='ew')
                     # update label in frame
                 self.results_frame.results_label.configure(text=self.results_list)
         except:
