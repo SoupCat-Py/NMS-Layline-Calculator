@@ -15,7 +15,7 @@ There are 3 types of these deposits:
 
 
 Each planet will only spawn one type of these 3-star deposits. If you find one that you aren't
-looking for, just go to another planet.Spawn will be marked with yellow icon with 3 Stars after 
+looking for, just go to another planet. Spawn will be marked with yellow icon with 3 Stars after 
 a scan or in your visor if you are closer than 400u
 
 3-star deposits respawn based on distance, meaning if you go far enough to unload the terrain,
