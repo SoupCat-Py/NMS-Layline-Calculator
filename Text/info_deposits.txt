@@ -11,7 +11,7 @@ There are 3 types of these deposits:
 
 - Curious Deposit: These drop large amounts of Runaway Mould, which refines 5:1 into nanites. 
   Requires advanced mining laser multitool tech installed. Recommend player builds walls around them 
-  as they will roll away after being hitand has Optical Drill installed to increase the yield.
+  as they will roll away after being hit and has Optical Drill installed to increase the yield.
 
 
 Each planet will only spawn one type of these 3-star deposits. If you find one that you aren't
