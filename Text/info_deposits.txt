@@ -6,15 +6,20 @@ There are 3 types of these deposits:
 - Sac Venom: If you get too close you will be damaged, and picking them up will alert sentinels
   to lvl 3 (quad spawns)
 
-- Metal Fingers: Can be mined with the Advanced Mining Laser and will drop large amounts of
-  either Uranium or Gold
+- Metal Fingers: Will drop large amounts of either Uranium or Gold. Requires advanced mining laser 
+  multitool tech installed.
 
-- Curious Deposit: Can be mined with the Advanced Mining Laser and will start to roll 
-  away when hit. These drop large amounts of Runaway Mould, which refines 5:1 into nanites
+- Curious Deposit: These drop large amounts of Runaway Mould, which refines 5:1 into nanites. 
+  Requires advanced mining laser multitool tech installed. Recommend player builds walls around them 
+  as they will roll away after being hitand has Optical Drill installed to increase the yield.
 
 
 Each planet will only spawn one type of these 3-star deposits. If you find one that you aren't
-looking for, just go to another planet.
+looking for, just go to another planet.Spawn will be marked with yellow icon with 3 Stars after 
+a scan or in your visor if you are closer than 400u
 
 3-star deposits respawn based on distance, meaning if you go far enough to unload the terrain,
 the deposits will respawn when you come back.
+Deposits won't respawn if the terrain under them was modified. If you flattened or otherwise 
+edited the terrain you have to restore it to the original. That can be done with 
+Terrain Manipulator and its restore function.
