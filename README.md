@@ -8,7 +8,7 @@ It is a remake of a remake of a program that Bjorn made a while ago, now made us
 ---
 
 ## How to use NMS Layline Calculator
-<h6>Note: the most recent version for windows and mac is 3.1.2 </h6>
+<h6>Note: the latest version for windows is 3.1.2 and mac is 3.2.0 </h6>
 
 1. Go to [releases](https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases) and download the `.zip` for the correct system,
 2. Download and extract the `.zip` file of the **app**, <br />
