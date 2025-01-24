@@ -9,17 +9,17 @@ It is a remake of a remake of a program that Bjorn made a while ago, now made us
 
 ## How to use NMS Layline Calculator
 
-1. Go to [releases](https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases) and download the `.zip` for the correct system,
-2. Download and extract the `.zip` file of the **app**, <br />
-![zip file download](https://github.com/user-attachments/assets/4be44035-2028-435d-b853-beedb9c0e8f5)
-4. Run the program and follow instructions on the release page (varies by system):
-   - **Windows**: Open the `.exe`.
-   - **MacOS**: Open the `.app`.
-5. Grant NMSLC permission to access your downloads. It only needs this to log your results
-6. You are more than welcome to take a look at the source code if you have any doubts :)
+1. Go to [releases](https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases) and download the `.zip` for the correct system <br />
+![zip file download](https://github.com/user-attachments/assets/45a1ceeb-266e-410d-943d-604da1a66ba8)
+   - macOS zip file contains a `.app`
+   - Windows zip file contains a `.zip`
+
+2. Grant NMSLC permission to access your downloads. It only needs this to log your results
+   
+4. You are more than welcome to take a look at the source code if you have any doubts :)
 
 NMSLC contains detailed instructions as well as useful info on 3-star resources and laylines under the "help" menu tab. However, if you prefer it in the form of a video, we have prepared a [short demonstration](https://www.youtube.com/watch?v=Ec8QN39GNB8) (video link is also in the app's guide).
->*Install the included NMS font for the best experience*
+>*Install the included NMS font (found in the code tab) for the best experience*
 
 ---
 
@@ -30,4 +30,4 @@ Don't hesitate to [contact soup](https://mail.google.com/mail/?view=cm&fs=1&to=s
 
 ---
 
-**Note**: The "source code" download in the releases isn't the most up-to-date, so instead, download `source.zip` from the code tab if you want the latest source code. They're the same for Mac and Windows.
+**Note**: The "source code" download in the releases isn't always the most up-to-date, so instead, download `source.zip` from the code tab if you want the latest source code. They're the same for Mac and Windows.
