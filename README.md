@@ -1,5 +1,6 @@
 # NMS-Layline-Calculator
 
+<h2>WARNING: I recently found out that the mac build is damaged so i will fix that ASAP</h2>
 Use this calculator to find 3-star deposits (runaway mould, sac venom, and metal fingers) in No Man's Sky.  
 Made by Soup Cat and Bjorn the Void Trader.
 
