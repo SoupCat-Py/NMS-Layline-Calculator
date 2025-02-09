@@ -65,7 +65,7 @@ if os.name == "nt":  # Only for Windows
 def calculate(lat1, lat2, long1, long2, distance):
     global calcDone, verticalResult
     calcDone = True
-    laylineDistance = (655*(math.sqrt(abs(lat2-lat1)**2 + abs(long2-long1)**2))) / distance
+    laylineDistance = (655*math.sqrt((lat2-lat1)**2 + (long2-long1)**2)) / distance
 
     angles = [-90, 0, 90, 180]
     listAdd = [angle + (laylineDistance/2) for angle in angles]
