@@ -10,7 +10,8 @@ It is a remake of a remake of a program that Bjorn made a while ago, now made us
 ## How to use NMS Layline Calculator
 
 1. Go to [releases](https://github.com/SoupCat-Py/NMS-Layline-Calculator/releases) and download the `.zip` for the correct system <br />
-![zip file download](https://github.com/user-attachments/assets/45a1ceeb-266e-410d-943d-604da1a66ba8)
+![download one of the top two, depending on platform](https://github.com/user-attachments/assets/dc6db309-5496-4514-a241-d9c272dafd04)
+
    - macOS zip file contains a `.app`
    - Windows zip file contains a `.zip`
 
