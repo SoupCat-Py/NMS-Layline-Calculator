@@ -26,7 +26,7 @@ NMSLC contains detailed instructions as well as useful info on 3-star resources 
 
 ## Message to Apple Users from Soup:
 
-We do not currently have access to an Apple Silicon Mac, so if you have one and you know what you're doing, We would greatly appreciate it if you made a build for ARM architecture. <br />
+We do not currently have access to an Apple Silicon Mac, so if you have one and you know what you're doing, We would greatly appreciate it if you made a build natively for ARM architecture. <br />
 Don't hesitate to [contact soup](https://mail.google.com/mail/?view=cm&fs=1&to=soupcat.py@gmail.com) if you think this is something that you can do. :)
 
 ---
