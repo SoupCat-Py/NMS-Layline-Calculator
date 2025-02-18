@@ -13,9 +13,10 @@ It is a remake of a remake of a program that Bjorn made a while ago, now made us
 ![download one of the top two, depending on platform](https://github.com/user-attachments/assets/dc6db309-5496-4514-a241-d9c272dafd04)
 
    - macOS zip file contains a `.app`
-   - Windows zip file contains a `.zip`
+   - Windows zip file contains a `.exe`
+2. Follow installation instructions found in the release section
 
-2. Grant NMSLC permission to access your downloads. It only needs this to log your results
+3. Grant NMSLC permission to access your downloads (if it asks). It only needs this to log your results
    
 4. You are more than welcome to take a look at the source code if you have any doubts :)
 
