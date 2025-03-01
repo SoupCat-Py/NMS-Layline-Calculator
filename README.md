@@ -1,4 +1,7 @@
-# NMS-Layline-Calculator
+<img width="80" alt="nmslc_icon_small" src="https://github.com/user-attachments/assets/ef0491de-c391-48e6-b166-37478eed7405" /> 
+
+# NMS Layline Calculator
+
 
 Use this calculator to find 3-star deposits (runaway mould, sac venom, and metal fingers) in No Man's Sky.  
 Made by Soup Cat and Bjorn the Void Trader.
