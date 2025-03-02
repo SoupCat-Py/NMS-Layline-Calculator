@@ -1,24 +1,32 @@
 # NMS-LC v3
-# version 3.2.0
-# most recent addition: create new blank text file
+# version 3.3.0
+
+'''
+PATCH NOTES:
+- added the "view code" button that goes to the .py file on GitHub
+- modified the commands for the "contact me" and "video tutorial" buttons
+- slight (non-functional) update to the "calculate" function
+'''
 
 # UI
-import customtkinter as ctk
-import tkinter as tk      # for menu bar
-import tkinter.messagebox as msg    # for showing errors
-from tkinter import filedialog  # for path
-from PIL import Image
+import customtkinter as ctk         # general GUI library
+import tkinter as tk                # menu bar
+from tkinter import filedialog      # path
+from PIL import Image               # button icons
+import tkinter.messagebox as msg    # showing errors
 # utilities
 import math, os, sys, subprocess
 import webbrowser as web
 import datetime as dt
 
+
 path=None
 calcDone = False
 nms='GeosansLight-NMS'
 
+
 def resource_path(relative_path):
-    # Get absolute path to resource, works for dev and for PyInstaller/cx_Freeze.
+    # Get absolute path to resource, works for dev and packaged app
     try:
         # When running as a packaged executable
         base_path = sys._MEIPASS
@@ -80,8 +88,11 @@ def calculate(lat1, lat2, long1, long2, distance):
             listResult[i] += 360
         listResult[i] = round(listResult[i], 2)
 
-    listResult.sort()                                # sort for display
-    verticalResult = "\n".join(map(str, listResult)) # format vertically
+    listResult.sort()
+    verticalResult = "\n".join(map(str, listResult))
+
+    # Format the result into a vertical string
+    verticalResult = "\n".join(map(str, listResult))
     return verticalResult
 
 # make a blank text file
@@ -288,9 +299,9 @@ class App(ctk.CTk):
         try:
             back_path = resource_path('Images/back.png')
             self.back_icon=ctk.CTkImage(light_image=Image.open(back_path), dark_image=Image.open(back_path), size=(20,20))
-            self.back_button=ctk.CTkButton(self, text='Back',image=self.back_icon, width=60, font=(nms,15), command=self.back)
+            self.back_button=ctk.CTkButton(self, text='',image=self.back_icon, width=20, corner_radius=10, font=(nms,15), command=self.back)
         except:
-            self.back_button=ctk.CTkButton(self, text='Back', width=60, font=(nms,15), command=self.back)
+            self.back_button=ctk.CTkButton(self, text='', width=20, corner_radius=10, font=(nms,15), command=self.back)
         self.log_button=ctk.CTkButton(self, text='Log Results', font=(nms,15), command=logResults)
         self.path_button=ctk.CTkButton(self, text='Change Path', font=(nms,15), command=getPath)
         self.open_button=ctk.CTkButton(self, text='Open File', font=(nms,15), command=openFile)
@@ -303,6 +314,7 @@ class App(ctk.CTk):
             guide_path=resource_path('Text/guide.txt')
             guide_file=open(guide_path,'r')
             guide_text=guide_file.read()
+            guide_file.close()
             self.guide_label=ctk.CTkLabel(self, text=guide_text, justify='left')
             guide_file.close()
         except:
@@ -310,9 +322,9 @@ class App(ctk.CTk):
         try:
             video_path=resource_path('Images/video.png')
             self.video_icon=ctk.CTkImage(light_image=Image.open(video_path), dark_image=Image.open(video_path), size=(20,20))
-            self.video_button=ctk.CTkButton(self, text='Video Guide', image=self.video_icon, command=self.show_video)
+            self.video_button=ctk.CTkButton(self, text='Video Guide', image=self.video_icon, command=lambda: web.open_new_tab('https://youtu.be/Ec8QN39GNB8'))
         except:
-            self.video_button=ctk.CTkButton(self, text='Video Guide', command=self.show_video)
+            self.video_button=ctk.CTkButton(self, text='Video Guide', command=lambda: web.open_new_tab('https://youtu.be/Ec8QN39GNB8'))
 
         # info screen
         self.info_title_deposits=ctk.CTkLabel(self, text='3-Star Deposits', font=(nms,22))
@@ -328,6 +340,7 @@ class App(ctk.CTk):
             about_path=resource_path('Text/about.txt')
             about_file=open(about_path, 'r')
             about_text=about_file.read()
+            about_file.close()
             self.about_label=ctk.CTkLabel(self, text=about_text, justify='left')
             about_file.close()
         except:
@@ -336,10 +349,16 @@ class App(ctk.CTk):
         try:
             mail_path = resource_path('Images/mail.png')
             self.mail_icon=ctk.CTkImage(light_image=Image.open(mail_path), dark_image=Image.open(mail_path), size=(20,20))
-            self.about_email_button=ctk.CTkButton(self, text='Contact Me', image=self.mail_icon, command=self.open_email)
+            self.about_email_button=ctk.CTkButton(self, text='Contact Me', image=self.mail_icon, command=lambda: web.open_new_tab('https://mail.google.com/mail/?view=cm&fs=1&to=soupcat.py@gmail.com'))
         except:
-            self.about_email_button=ctk.CTkButton(self, text='Contact Me', command=self.open_email)
-
+            self.about_email_button=ctk.CTkButton(self, text='Contact Me', command=lambda: web.open_new_tab('https://mail.google.com/mail/?view=cm&fs=1&to=soupcat.py@gmail.com'))
+        #
+        try:
+            code_path = resource_path('Images/code.png')
+            self.code_icon=ctk.CTkImage(light_image=Image.open(code_path), dark_image=Image.open(code_path), size=(24,20))
+            self.about_code_button=ctk.CTkButton(self, text='View Code', image=self.code_icon, command=lambda: web.open_new_tab('https://github.com/SoupCat-Py/NMS-Layline-Calculator/blob/main/NMSLC-v3.py'))
+        except:
+            self.about_code_button=ctk.CTkButton(self, text='View Code', command=lambda: web.open_new_tab('https://github.com/SoupCat-Py/NMS-Layline-Calculator/blob/main/NMSLC-v3.py'))
 
         # make keybinds
         self.bind_all('<Return>', lambda event: self.give_inputs())
@@ -386,6 +405,7 @@ class App(ctk.CTk):
         self.about_title.grid_forget()
         self.about_label.grid_forget()
         self.about_email_button.grid_forget()
+        self.about_code_button.grid_forget()
 
         self.back_button.grid_forget()
         main = False
@@ -476,7 +496,6 @@ before running the calculation''', font=('Helvetica', 16))
                 self.confirm_label.grid(row=1,column=0, sticky='ew')
                 self.results_frame.grid(row=2,column=1, padx=10,pady=10, rowspan=5, sticky='ew', columnspan=2)
                 self.back_button.grid(row=2,column=0, padx=10,pady=10, sticky='e')
-                self.back_button.configure(width=100)
                 self.log_button.grid(row=3,column=0, padx=10,pady=5, sticky='e')
                 self.path_button.grid(row=4,column=0, padx=10,pady=5, sticky='e')
                 self.open_button.grid(row=5,column=0, padx=10,pady=5, sticky='e')
@@ -531,7 +550,6 @@ before running the calculation''', font=('Helvetica', 16))
         self.guide_label.grid(row=2,column=0, padx=15,pady=10, columnspan=2)
         self.video_button.grid(row=3,column=1, padx=20,pady=10, sticky='ew')
         self.back_button.grid(row=3,column=0, padx=10,pady=10, sticky='w')
-        self.back_button.configure(width=150)
     def show_info(self):
         self.hideLayout()
         self.info_title_deposits.grid(row=1,column=0, padx=10,pady=10)
@@ -539,18 +557,15 @@ before running the calculation''', font=('Helvetica', 16))
         self.info_deposits_frame.grid(row=2,column=0, padx=10,pady=10, sticky='ns')
         self.info_laylines_frame.grid(row=2,column=1, padx=10,pady=10, sticky='ns')
         self.back_button.grid(row=3,column=0, padx=10,pady=10, sticky='w')
-        self.back_button.configure(width=150)
     def show_about(self):
         self.hideLayout()
-        self.about_title.grid(row=1,column=0, padx=10,pady=10, columnspan=2)
-        self.about_label.grid(row=2,column=0, padx=15,pady=10, columnspan=2)
+        self.title_label.grid(row=0,column=0, columnspan=3)
+        self.about_title.grid(row=1,column=0, padx=10,pady=10, columnspan=3)
+        self.about_label.grid(row=2,column=0, padx=15,pady=10, columnspan=3)
         self.back_button.grid(row=3,column=0, padx=10,pady=10, sticky='w')
-        self.back_button.configure(width=150)
         self.about_email_button.grid(row=3,column=1, padx=10,pady=10)
-    def open_email(self):
-        web.open_new_tab('https://mail.google.com/mail/?view=cm&fs=1&to=soupcat.py@gmail.com')
-    def show_video(self):
-        web.open_new_tab('https://youtu.be/Ec8QN39GNB8')
+        self.about_code_button.grid(row=3,column=2, padx=10,pady=10)
+
 
 # define the frame for user inputs
 class inputFrame(ctk.CTkFrame):
@@ -606,6 +621,7 @@ class infoFrameDeposits(ctk.CTkFrame):
             info_deposits_path = resource_path('Text/info_deposits.txt')
             info_deposits_file = open(info_deposits_path, 'r')
             info_deposits_text = info_deposits_file.read()
+            info_deposits_file.close()
             self.info_deposits_label=ctk.CTkLabel(self, text=info_deposits_text, justify='left')
             info_deposits_file.close()
         except:
@@ -618,11 +634,13 @@ class infoFrameLaylines(ctk.CTkFrame):
             info_laylines_path = resource_path('Text/info_laylines.txt')
             info_laylines_file = open(info_laylines_path, 'r')
             info_laylines_text = info_laylines_file.read()
+            info_laylines_file.close()
             self.info_laylines_label=ctk.CTkLabel(self, text=info_laylines_text, justify='left')
             info_laylines_file.close()
         except:
             self.info_laylines_label=ctk.CTkLabel(self, text='<MISSING TEXT FILE>', justify='left')
         self.info_laylines_label.grid(row=0,column=0, padx=10,pady=10)
+
 
 
 if __name__ == '__main__':
