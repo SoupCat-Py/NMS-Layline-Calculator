@@ -3,9 +3,9 @@
 
 '''
 PATCH NOTES:
-- added the "view code" button that goes to the .py file on GitHub
-- modified the commands for the "contact me" and "video tutorial" buttons
-- slight (non-functional) update to the "calculate" function
+• added the "view code" button that goes to the .py file on GitHub
+• modified the commands for the "contact me" and "video tutorial" buttons
+• slight (non-functional) update to the "calculate" function
 '''
 
 # UI
