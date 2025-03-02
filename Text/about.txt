@@ -1,9 +1,9 @@
 No Man's Sky layline calculator
 
-version 3.2.0
+version 3.3.0
 
-Idea and math/logic by Bjorn the Void Trader
-Code by Soup Cat (with a lot of help from GPT)
+Code by Soup Cat
+Based off the original program and logic by Bjørn the Void Trader
 .EXE and .APP built using PyInstaller
 
 This application is a fan-made tool for players to use and is not
@@ -11,5 +11,5 @@ affiliated with or endorsed by Hello Games.
 
 UI icons from icons8.com
 
-Feel free to send me an email if you find a bug/inaccuracy or
+Feel free to shoot me an email if you find a bug/inaccuracy or
 want to suggest an idea.
