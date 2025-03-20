@@ -72,15 +72,18 @@ if os.name == "nt":  # Only for Windows
 
 def calculate(lat1, lat2, long1, long2, distance):
     global calcDone, verticalResult
-    calcDone = True
-    laylineDistance = (655*math.sqrt((lat2-lat1)**2 + (long2-long1)**2)) / distance
+    calcDone = True # set this for the program to know if a calc has been completed
+    laylineDistance = (655*math.sqrt((lat2-lat1)**2 + (long2-long1)**2)) / distance # super special formula
 
+    # add/subtract laylineDistance from major angles
     angles = [-90, 0, 90, 180]
     listAdd = [angle + (laylineDistance/2) for angle in angles]
     listSubtract = [angle - (laylineDistance/2) for angle in angles]
 
+    # combine both lists into one
     listResult = listAdd + listSubtract
 
+    # check for values >180 or <180 to change the sign
     for i in range (len(listResult)):
         if listResult[i] > 180:
             listResult[i] -= 360
@@ -88,6 +91,7 @@ def calculate(lat1, lat2, long1, long2, distance):
             listResult[i] += 360
         listResult[i] = round(listResult[i], 2)
 
+    # sort list and turn it into a string
     listResult.sort()
     verticalResult = "\n".join(map(str, listResult))
 
