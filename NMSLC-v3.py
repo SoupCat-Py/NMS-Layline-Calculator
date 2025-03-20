@@ -91,12 +91,8 @@ def calculate(lat1, lat2, long1, long2, distance):
             listResult[i] += 360
         listResult[i] = round(listResult[i], 2)
 
-    # sort list and turn it into a string
-    listResult.sort()
-    verticalResult = "\n".join(map(str, listResult))
-
-    # Format the result into a vertical string
-    verticalResult = "\n".join(map(str, listResult))
+    listResult.sort()  # sort list
+    verticalResult = "\n".join(map(str, listResult))  # turn the list into a vertically-formatted string
     return verticalResult
 
 # make a blank text file
